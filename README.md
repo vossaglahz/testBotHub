@@ -11,6 +11,7 @@
 Есть интеграция ИИ GhatGPT API с отправкой файлов и голосового ввода.
 
 И так теперь по тестовому заданию:
+
 Всё просто:
 ## Для запуска кода, необходимо сделать
 ```
@@ -35,15 +36,20 @@
 Все EndPoints на свагерре http://localhost:8000/api/
 
 Чтобы чекнуть через Postman
+```
 POST /users/login (email, password), оттуда беретe acccesToken и вставляете в Authorization Bearer Token
-
+```
+```
 GET /feedback для получение всех данных, есть query для сортировки (page, limit, startPeriod, endPeriod, category, votes, status, createdAt)
-
+```
+```
 POST /feedback/post ({
   "title": "тема",
   "description": "описание",
   "status": "Planned",
   "category": "Functionality"
 }) создание поста, стоит middleware validation на authValidate, checkRole('user')
-
+```
+```
 POST /feedback/vote/:postId (postId и по токену проверяется юзер и id юзера пушет в массив проголосовавших votes) создание поста, стоит middleware validation на authValidate, checkRole('user')
+```
