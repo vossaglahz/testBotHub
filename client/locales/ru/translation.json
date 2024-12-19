@@ -367,7 +367,8 @@
     },
     "Footer":{
         "lawyersList":{
-            "title":"Тестовое задание для БотХаб",
+            "title":"Наши юристы",
+            "test":"Feedback БотХаб",
             "city":"Город",
             "notShown":"Не указан",
             "rating":"Рейтинг",
