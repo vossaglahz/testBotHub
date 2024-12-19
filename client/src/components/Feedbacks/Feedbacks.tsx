@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useGetFeedbacksQuery } from '../../store/api/feedback';
-import { FormControl, InputLabel, MenuItem, Pagination, Select } from '@mui/material';
+import { useGetFeedbacksQuery, usePostFeedbackMutation } from '../../store/api/feedback';
+import { Button, FormControl, InputLabel, MenuItem, Pagination, Select } from '@mui/material';
 import { AlertComponent } from '../UI/Alert/Alert';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
@@ -10,15 +10,21 @@ import { FeedbackOne } from './FeedbackOne';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-
+import { Box, Modal } from '@mui/material';
+import { PostFeedbackModal } from './PostFeedback';
+import { useAppSelector } from '../../store/store';
+import { useLocation } from 'react-router-dom';
+import './Feedback.scss';
 
 dayjs.locale('ru');
 
 export const Feedbacks = () => {
+    const { user } = useAppSelector(state => state.users);
     const { t } = useTranslation();
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [category, setCategory] = useState<string>('');
     const [votes, setVotes] = useState<string>("");
+    const [open, setOpen] = useState(false);
     const [startPeriod, setStartPeriod] = useState<string>('');
     const [createdAt, setCreatedAt] = useState<string>('');
     const [endPeriod, setEndPeriod] = useState<string>('');
@@ -26,10 +32,12 @@ export const Feedbacks = () => {
     const { data, error, isLoading, refetch } = useGetFeedbacksQuery({
         currentPage, startPeriod, endPeriod, category, votes, status, createdAt
     });
+    const [postFeedback, { isError: feedbackError, isSuccess: feedbackSuccess }] = usePostFeedbackMutation();
 
     const feedbacks = data?.feedbacks || [];
     const feedbacksCount: number = data?.totalCount || 0;
     const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 767);
+    const location = useLocation();
 
     useEffect(() => {
         const handleResize = () => {
@@ -39,6 +47,10 @@ export const Feedbacks = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    useEffect(() => {
+        refetch();
+    }, [location.pathname, feedbackSuccess]);
 
     if (isLoading) {
         return <div>{t('List.dealList.loading')}</div>;
@@ -55,10 +67,20 @@ export const Feedbacks = () => {
         refetch();
     };
 
+    const toggleOpen = () => {
+        setOpen(prevOpen => !prevOpen);
+    };
+
     return (
         <>
                 <div className="deal-list container">
-                    <AlertComponent isError={error !== undefined} text={t('List.dealList.createDealError')} status={'error'} />
+                    <AlertComponent isError={error !== undefined || feedbackError} text={"Пост не создан, повторите попытку"} status={'error'} />
+                    <AlertComponent isError={feedbackSuccess} text={"Пост успешно создан"} status={'success'} />
+                    <Modal open={open} onClose={toggleOpen}>
+                        <Box>
+                            <PostFeedbackModal createFeedback={postFeedback} closeModal={toggleOpen} />
+                        </Box>
+                    </Modal>
                     <div className="formSelect">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DemoContainer sx={{ maxWidth: 200, marginTop: '8px', marginRight: '5px', paddingTop: 0 }} components={['DatePicker']}>
@@ -104,7 +126,7 @@ export const Feedbacks = () => {
                             >
                                 <MenuItem value={''}>{t('List.dealList.typeAll')}</MenuItem>
                                 <MenuItem value={'Functionality'}>{"Функциональность"}</MenuItem>
-                                <MenuItem value={'Bag'}>{'Баг'}</MenuItem>
+                                <MenuItem value={'Bug'}>{'Баг'}</MenuItem>
                                 <MenuItem value={'UI'}>{"UI"}</MenuItem>
                                 <MenuItem value={'Performance'}>{"Производительность"}</MenuItem>
                             </Select>
@@ -146,11 +168,25 @@ export const Feedbacks = () => {
                                 <MenuItem value={'LOWEST'}>{"Низкая"}</MenuItem>
                             </Select>
                         </FormControl>
+                        {user.role === 'user' ? (
+                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <Button className="open-deal-button" variant="contained" onClick={toggleOpen}>
+                                    {"Создать пост"}
+                                </Button>
+                            </div>
+                        ) : (
+                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <Button disabled={true} className="open-deal-button" variant="contained" onClick={toggleOpen}>
+                                    {"Авторизуйтесь для создание"}
+                                </Button>
+                            </div>
+                        )}
                     </div>
                     {feedbacks.length > 0 ? (
                         feedbacks.map((feedback: IFeedback) => {
                             return (
                                 <FeedbackOne
+                                    key={feedback.id} 
                                     id={feedback.id}
                                     title={feedback.title}
                                     description={feedback.description}

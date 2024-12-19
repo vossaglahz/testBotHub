@@ -43,9 +43,9 @@ export class FeedbackRepository extends Repository<Feedback> {
     
         if (filters.votes) {
             if (filters.votes === 'LOWEST') {
-                queryBuilder.orderBy('feedback.votes', 'ASC');
+                queryBuilder.orderBy('jsonb_array_length(feedback.votes)', 'ASC');
             } else if (filters.votes === 'HIGHEST') {
-                queryBuilder.orderBy('feedback.votes', 'DESC');
+                queryBuilder.orderBy('jsonb_array_length(feedback.votes)', 'DESC');
             }
         }
     

@@ -6,6 +6,7 @@ import { useVoteToFeedbackMutation } from '../../store/api/feedback';
 import { IFeedback } from '../../interfaces/IFeedback.interface';
 import { useAppSelector } from '../../store/store';
 import { format } from 'date-fns';
+import './Feedback.scss';
 
 const FeedbackDate = ({ createdAt }: { createdAt: string }) => {
     const formattedDate = format(new Date(createdAt), 'dd MMMM yyyy, HH:mm:ss');
@@ -144,7 +145,7 @@ export const FeedbackOne = ({
                         size="small"
                         endIcon={<SendIcon />}
                     >
-                        Авторизуйтесь как пользователь для голосования
+                        Авторизуйтесь для лайка
                     </Button>
                 )}
             </CardActions>

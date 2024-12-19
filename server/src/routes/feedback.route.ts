@@ -16,7 +16,7 @@ export class FeedbackRoute implements IRoute {
 
     private init() {
         this.router.get('/', this.controller.getFeedbacks);
-        this.router.post('/post', authValidate, this.controller.postFeedback);
+        this.router.post('/post', authValidate, checkRole('user'), this.controller.postFeedback);
         this.router.post('/vote/:id', authValidate, checkRole('user'), this.controller.voteToFeedback);
     }
 }
