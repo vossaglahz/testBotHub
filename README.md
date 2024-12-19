@@ -23,10 +23,21 @@
 ```
   npm install для server и client отдельно, не стал ultrarunner подключать
 ```
-## Для создания мок-данных
+## server
 ```
-  npm run seed для server
+  npm run seed для мок-данных
 ```
+Пароль всех мок-данных: 123456
+
+```
+  npm run dev для запуска
+```
+
+## client
+```
+  npm run dev для запуска
+```
+
 ## .env для server, client отправил отдельно на чате
 
 Есть роль user, lawyer, admin
