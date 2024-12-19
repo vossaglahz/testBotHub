@@ -1,0 +1,41 @@
+@import '@/assets/scss/colors.scss';
+
+.FeedBackFormWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 50px;
+    box-shadow: 2px 0px 20px gray;
+    border-radius: 16px;
+    justify-content: space-between;
+    height: 600px;
+    font-family: 'Roboto', sans-serif !important;
+
+    h1 {
+        color: $color-primary;
+        margin: 0;
+    }
+}
+
+.feedBackSendButton {
+    background-color: $color-primary !important;
+}
+
+.InputFeedback .MuiFilledInput-root.Mui-focused {
+    background-color: $color-white-lower;
+}
+
+@media (max-width: 600px) {
+    .FeedBackFormWrapper {
+        min-height: 450px;
+        width: 90%;
+        height: 80%;
+        h1 {
+            font-size: 25px;
+        }
+    }
+}

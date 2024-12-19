@@ -1,0 +1,33 @@
+.message-сard__text {
+    background-color: #dbeafe;
+    padding: 10px 20px;
+    display: flex;
+    border: 1px solid #dbeafe;
+    margin: 10px 20px;
+    border-radius: 15px;
+    max-width: 70%;
+}
+
+.message-сard__message {
+    color: black;
+    hyphens: auto;
+}
+
+.user {
+    word-break: break-all;
+}
+
+.chatMessageWrap {
+    max-width: 70%;
+    img {
+        display: flex;
+        justify-content: end;
+        width: 200px;
+        height: 150px;
+    }
+}
+
+.user__preview {
+    display: flex;
+    justify-content: end;
+}

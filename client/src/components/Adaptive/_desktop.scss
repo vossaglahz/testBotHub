@@ -1,0 +1,52 @@
+@media (max-width: 1200px) {
+    .container {
+        max-width: 90% !important;
+        margin: 0 auto;
+    }
+    .rating {
+        margin: 0;
+    }
+    .profile {
+        .container {
+            max-width: 100%;
+        }
+    }
+    .cabinetAside {
+        width: 37%;
+    }
+    .cabinet__outlet {
+        width: 63%;
+        .container {
+            margin: 0;
+            max-width: 100% !important;
+        }
+    }
+    .profile__info-image {
+        margin: 0;
+    }
+    .formSelect {
+        flex-wrap: wrap;
+    }
+    .profile__info-content > label {
+        gap: 0;
+    }
+
+    .deal-history-card {
+        flex-direction: column;
+    }
+
+    .css-j791vp-MuiTypography-root {
+        gap: 20px !important;
+    }
+
+    .panelAside {
+        &::-webkit-scrollbar {
+            display: none !important;
+        }
+    }
+
+    .authForm {
+        margin-top: 50px !important;
+        gap: 30px !important;
+    }
+}

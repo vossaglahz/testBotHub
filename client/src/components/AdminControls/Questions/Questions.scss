@@ -1,0 +1,87 @@
+@import '@/assets/scss/colors.scss';
+
+.deal-history {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.deal-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.deal-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deal-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70vw;
+}
+
+.deal-button {
+    border-radius: 7px !important;
+    background-color: $color-primary !important;
+}
+
+.block-button {
+    border-radius: 7px !important;
+    background-color: $color-red !important;
+}
+
+.deal-history-card {
+    background-color: $color-white !important;
+    border-radius: 12px !important;
+    position: relative;
+    color: $color-deal;
+}
+
+.formSelect {
+    display: flex;
+}
+
+.empty-show {
+    text-align: center;
+    color: $color-black;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+.img-pro {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.paginationDealHistory {
+    display: flex;
+    justify-content: center;
+}
+
+.formSelectMenu {
+    width: 100px;
+    margin-top: 8px !important;
+    margin-right: 5px !important;
+}
+
+.css-1q4nm6f-MuiCardActions-root {
+    justify-content: end;
+}
+
+@media (max-width: 1130px) {
+    .formSelect {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .deal-button {
+        text-indent: -9999px;
+    }
+}

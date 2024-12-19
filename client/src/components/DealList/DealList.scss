@@ -1,0 +1,140 @@
+@import '@/assets/scss/colors.scss';
+
+.deal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.deal-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+.deal-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.deal-description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.deal-button {
+    border-radius: 7px !important;
+    background-color: $color-primary !important;
+}
+
+.open-deal-button {
+    width: 200px;
+    padding: 10px !important;
+    border-radius: 7px !important;
+    background-color: $color-primary !important;
+}
+
+.deal-history-card {
+    background-color: $color-white !important;
+    border-radius: 12px !important;
+    position: relative;
+    color: $color-deal;
+}
+
+.formSelect {
+    display: flex;
+}
+
+.empty-show {
+    text-align: center;
+    color: $color-black;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.premium-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.premium {
+    color: $color-black;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.premium-img {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+.wabutton {
+    border-radius: 12px !important;
+    background-color: green !important;
+    margin-top: 20px !important;
+}
+
+.paginationDealHistory {
+    display: flex;
+    justify-content: center;
+}
+
+.formSelectMenu {
+    width: 100px;
+    margin-top: 8px !important;
+    margin-right: 5px !important;
+}
+
+@media (max-width: 1130px) {
+    .formSelect {
+        flex-wrap: wrap;
+    }
+    .deal-history-card {
+        min-width: 200px;
+    }
+    .deal-description {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .deal-description {
+        max-width: 500px;
+    }
+}
+@media (max-width: 850px) {
+    .deal-description {
+        max-width: 400px;
+    }
+}
+@media (max-width: 700px) {
+    .deal-description {
+        max-width: 300px;
+    }
+}
+@media (max-width: 600px) {
+    .deal-description {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .deal-description {
+        max-width: 150px;
+    }
+    .deal-button {
+        text-indent: -9999px;
+    }
+}

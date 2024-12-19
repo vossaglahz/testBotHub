@@ -1,0 +1,12 @@
+.faq_title {
+    margin: 40px 5px;
+}
+
+.faq_question {
+    font-size: 21px;
+    margin: 8px 0;
+}
+
+.faqPage > div {
+    margin: 0 !important;
+}

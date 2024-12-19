@@ -1,0 +1,65 @@
+@import '@/assets/scss/colors.scss';
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+.panelAside {
+    overflow-x: auto;
+    background-color: $color-white;
+    border-radius: 12px;
+    padding: 6px;
+    font-size: 19px;
+    height: 100%;
+    ::-webkit-scrollbar {
+        display: none !important;
+    }
+    .container {
+        margin: 0;
+    }
+}
+
+.panelAside li a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    color: black;
+    white-space: nowrap !important;
+    color: rgb(38, 136, 235) !important;
+}
+
+.cabinetAside .active,
+.panelAside .active {
+    background-color: #ffffff !important;
+    border: 1px solid #d7d8d9;
+}
+.panelAside li a:hover {
+    background-color: $color-background;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.panelAside li a {
+    width: 100%;
+    color: $color-black;
+}
+
+.panelAside svg {
+    width: 30px;
+    height: 30px;
+    color: $color-primary;
+}
+
+.panelAside .active {
+    background-color: $color-background;
+    border-radius: 12px;
+}
+
+.adminControllers {
+    display: flex;
+}
+
+.oneControl {
+    min-width: 198px;
+}
