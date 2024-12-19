@@ -11,6 +11,7 @@ import { userSocketHandler } from '@/sockets/userSocketHandler';
 import { ChatHistoryRoute } from '@/routes/chatHistory.route';
 import { OpenAIRoute } from './routes/openAI.route';
 import { ToDoListRoute } from './routes/toDoList.route';
+import { FeedbackRoute } from './routes/feedback.route';
 
 const app = new App({
     port: 8000,
@@ -23,7 +24,7 @@ const app = new App({
     ],
     controllers: [new UserRoute(), new DocumentsRoute(), new DealHistoryRoute(),
     new AdminRoute(), new NotificationRoute(), new RatingRoute(), new ChatHistoryRoute(),
-    new OpenAIRoute(), new ToDoListRoute()]
+    new OpenAIRoute(), new ToDoListRoute(), new FeedbackRoute()]
 });
 
 app.listen().then(() => {

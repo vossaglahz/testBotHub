@@ -12,11 +12,11 @@ export class PostFeedbackDto {
 
     @Expose()
     @IsNotEmpty({ message: 'Статус поста не должна быть пустой' })
-    @IsString({ message: 'Статус поста должен быть строкой' })
-    status!: number;
+    @IsString({ message: 'Статус поста должен быть "Idea" | "Planned" | "Processing" | "Done"' })
+    status!: "Idea" | "Planned" | "Processing" | "Done";
 
     @Expose()
-    @IsNotEmpty({ message: 'Тип поста не должен быть пустым' })
-    @IsString({ message: 'Тип поста должен быть строкой' })
-    category!: string;
+    @IsNotEmpty({ message: 'Категория поста не должен быть пустым' })
+    @IsString({ message: 'Категория поста должен быть "Functionality" | "Bag" | "UI" | "Performance"' })
+    category!: "Functionality" | "Bag" | "UI" | "Performance";
 }
