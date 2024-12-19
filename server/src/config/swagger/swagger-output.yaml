@@ -1,5 +1,6 @@
 swagger: "2.0"
 tags:
+  - name: "Feedback"
   - name: "User"
   - name: "Documents"
   - name: "Admin"
@@ -21,6 +22,56 @@ securityDefinitions:
 security:
   - Bearer: []
 paths:
+  /feedback/:
+    get:
+      tags:
+        - "Feedback"
+      responses:
+        200:
+          description: "Посты успешно получены"
+          schema:
+            $ref: "#/definitions/GetFeedbacksResponse"
+        401:
+          description: "Неавторизован"
+
+  /feedback/post:
+    post: 
+      tags:
+        - "Feedback"
+      parameters:
+        - name: "feedback"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/PostFeedback"
+      responses:
+        200:
+          description: "Пост успешно опубликован"
+          schema:
+            $ref: "#/definitions/PostFeedbackResponse"
+        400:
+          description: "Неверный ввод данных"
+        401:
+          description: "Неавторизован"
+
+  /feedback/vote/:id:
+    post: 
+      tags:
+        - "Feedback"
+      parameters:
+        - name: "feedback"
+          in: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/VoteFeedback"
+      responses:
+        200:
+          description: "Вы успешно проголосовали"
+          schema:
+            $ref: "#/definitions/VoteFeedbackResponse"
+        401:
+          description: "Неавторизован"
+
   /users/registration:
     post:
       tags:
@@ -778,7 +829,27 @@ definitions:
             createdAt:
               type: "string"
               format: "date-time"
-
+  PostFeedback:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+        example: "Добавить новый функционал"
+      description:
+        type: "string"
+        example: "Описание нового функционала для улучшения пользовательского опыта."
+      status:
+        type: "string"
+        example: "Planned"
+      category:
+        type: "string"
+        example: "Functionality"
+  VoteFeedback:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        example: 5
   UserLogin:
     type: "object"
     properties:
@@ -1048,4 +1119,104 @@ definitions:
         type: "string"
         format: "date-time"
         example: "2024-10-08T00:00:00Z"
+    
+  VoteFeedbackResponse:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        example: 9
+      title:
+        type: "string"
+        example: "string"
+      description:
+        type: "string"
+        example: "string"
+      category:
+        type: "string"
+        example: "Bug"
+      status:
+        type: "string"
+        example: "Planned"
+      createdAt:
+        type: "string"
+        format: "date-time"
+        example: "2024-12-19T16:44:59.614Z"
+      userId:
+        type: "number"
+        example: 1
+      votes:
+        type: "array"
+        items:
+          type: "object"
+        example: []
+
+  PostFeedbackResponse:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+        example: 13
+      title:
+        type: "string"
+        example: "string"
+      description:
+        type: "string"
+        example: "string"
+      status:
+        type: "string"
+        example: "Planned"
+      category:
+        type: "string"
+        example: "UI"
+      userId:
+        type: "number"
+        example: 1
+      createdAt:
+        type: "string"
+        format: "date-time"
+        example: "2024-12-19T17:35:18.780Z"
+      votes:
+        type: "null"
+        example: null
+
+  GetFeedbacksResponse:
+    type: "object"
+    properties:
+      feedbacks:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "number"
+              example: 13
+            title:
+              type: "string"
+              example: "sadasdas"
+            description:
+              type: "string"
+              example: "dasdasdas"
+            category:
+              type: "string"
+              example: "UI"
+            status:
+              type: "string"
+              example: "Planned"
+            createdAt:
+              type: "string"
+              format: "date-time"
+              example: "2024-12-19T17:35:18.780Z"
+            userId:
+              type: "number"
+              example: 1
+            votes:
+              type: "null"
+              example: null
+            clicked:
+              type: "boolean"
+              example: false
+      totalCount:
+        type: "number"
+        example: 13
 
