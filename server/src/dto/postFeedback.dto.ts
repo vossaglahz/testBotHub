@@ -1,5 +1,5 @@
 import { Expose } from 'class-transformer';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class PostFeedbackDto {
     @Expose()
@@ -11,12 +11,12 @@ export class PostFeedbackDto {
     description!: string;
 
     @Expose()
-    @IsNotEmpty({ message: 'Цена вопроса не должна быть пустой' })
-    @IsNumber({}, { message: 'Цена вопроса должна быть числом' })
-    price!: number;
+    @IsNotEmpty({ message: 'Статус поста не должна быть пустой' })
+    @IsString({ message: 'Статус поста должен быть строкой' })
+    status!: number;
 
     @Expose()
     @IsNotEmpty({ message: 'Тип поста не должен быть пустым' })
     @IsString({ message: 'Тип поста должен быть строкой' })
-    status!: string;
+    category!: string;
 }
