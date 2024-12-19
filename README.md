@@ -3,8 +3,11 @@
 Я Жалгасов Мерей, вообще я Fullstack, но больше заинтересован в Backend части.
 
 Тестовое задание по фидбеку решил интегрировать в свой недавний проект, можете его тоже проверить. Подумал это даст более широкое понимание моих скиллов.
+
 Презентацию по проекту Adal Zan: https://www.canva.com/design/DAGZwA8ojzs/0o1fmIDUiaqVwpCeuZI3Cw/view?utm_content=DAGZwA8ojzs&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h2c75f9a1ca
+
 Сам проект висит на проде, можете тоже чекнуть: https://adalzan.kz/
+
 Есть интеграция ИИ GhatGPT API с отправкой файлов и голосового ввода.
 
 И так теперь по тестовому заданию:
