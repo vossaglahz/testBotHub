@@ -11,6 +11,8 @@
 Сам проект висит на проде, можете тоже чекнуть: https://adalzan.kz/
 
 Есть интеграция ИИ GhatGPT API с отправкой файлов и голосового ввода.
+![image](https://github.com/user-attachments/assets/41be6ad7-550b-487e-9bf0-a62f64a7e7bd)
+
 
 И так теперь по тестовому заданию:
 
