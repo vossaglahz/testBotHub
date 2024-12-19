@@ -109,7 +109,7 @@ export const Header = () => {
                     {!isMobile ? (
                         <div className="btnAuth">
                             <div className="ours">
-                                <NavLink to={'/lawyer_list'}>{t('Footer.lawyersList.test')}</NavLink>
+                                <NavLink to={'/feedbackBotHub'}>{t('Footer.lawyersList.test')}</NavLink>
                             </div>
                             <div className="ours">
                                 <NavLink to={'/lawyer_list'}>{t('Footer.lawyersList.title')}</NavLink>

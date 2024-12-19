@@ -1,5 +1,5 @@
 import { AppDataSource } from '@/config/dataSource';
-import { Feedback } from '@/entities/feedback.entity';
+import { Feedback, FeedbackWithClicked } from '@/entities/feedback.entity';
 import { User } from '@/entities/user.entity';
 import { FeedbackQuery } from '@/interfaces/FeedbackQuery.interface';
 import { Repository } from 'typeorm';
@@ -12,37 +12,35 @@ export class FeedbackRepository extends Repository<Feedback> {
 
     async getFeedbacks(refreshToken: string, filters: FeedbackQuery) {
         let user = null;
-        user = await this.manager.findOne(User, { where: { refreshToken } });
-
-        if (!user) {
-            throw new Error('Пользователь не найден');
+        if (refreshToken) {
+            user = await this.manager.findOne(User, { where: { refreshToken } });
         }
-
+    
         const queryBuilder = this.createQueryBuilder('feedbacks')
             .orderBy('feedbacks.id', 'DESC');
-
+    
         const page = filters.page && filters.page > 0 ? filters.page : 1;
         const limit = filters.limit && filters.limit > 0 ? filters.limit : 5;
-
+    
         const offset = (page - 1) * limit;
         queryBuilder.skip(offset).take(limit);
-
+    
         if (filters.startPeriod) {
             queryBuilder.andWhere('feedbacks.createdAt >= :startPeriod', { startPeriod: new Date(filters.startPeriod) });
         }
-
+    
         if (filters.endPeriod) {
             queryBuilder.andWhere('feedbacks.createdAt <= :endPeriod', { endPeriod: new Date(filters.endPeriod) });
         }
-
+    
         if (filters.category) {
-            queryBuilder.andWhere('feedbacks.category = :category', { type: filters.category });
+            queryBuilder.andWhere('feedbacks.category = :category', { category: filters.category });
         }
-
+    
         if (filters.status) {
             queryBuilder.andWhere('feedbacks.status = :status', { status: filters.status });
         }
-
+    
         if (filters.votes) {
             if (filters.votes === 'LOWEST') {
                 queryBuilder.orderBy('feedbacks.votes', 'ASC');
@@ -50,7 +48,7 @@ export class FeedbackRepository extends Repository<Feedback> {
                 queryBuilder.orderBy('feedbacks.votes', 'DESC');
             }
         }
-
+    
         if (filters.createdAt) {
             if (filters.createdAt === 'NEWEST') {
                 queryBuilder.orderBy('feedbacks.createdAt', 'DESC');
@@ -58,14 +56,33 @@ export class FeedbackRepository extends Repository<Feedback> {
                 queryBuilder.orderBy('feedbacks.createdAt', 'ASC');
             }
         }
-
+    
         const [feedbacks, totalCount] = await Promise.all([queryBuilder.getMany(), queryBuilder.getCount()]);
-
+    
+        const feedbacksWithClickedField: FeedbackWithClicked[] = feedbacks.map(feedback => {
+            const feedbackWithClicked = {
+                ...feedback,
+                clicked: false,
+            } as FeedbackWithClicked;
+    
+            if (user && Array.isArray(feedback.votes)) {
+                feedback.votes.find(vote => {
+                    if (vote && vote.id === user.id) {
+                        feedbackWithClicked.clicked = true;
+                    }
+                    return false;
+                });
+            }
+    
+            return feedbackWithClicked;
+        });
+    
         return {
-            feedbacks,
-            totalCount
+            feedbacks: feedbacksWithClickedField,
+            totalCount,
         };
     }
+    
 
     async postFeedback(feedbackDto: PostFeedbackDto, refreshToken: string) {
         try {
@@ -90,29 +107,31 @@ export class FeedbackRepository extends Repository<Feedback> {
         try {
             const user = await this.manager.findOne(User, { where: { refreshToken } });
             if (!user) throw new Error('Пользователь не найден');
-
+    
             const feedback = await this.manager.findOne(Feedback, {
                 where: { id: Number(feedbackId) },
             });
             if (!feedback) throw new Error('Сделка не найдена');
-
+    
             feedback.votes = feedback.votes || [];
             feedback.votes = feedback.votes.filter(votes => votes !== null);
-
-            const userExists = feedback.votes.some(votes => votes.id === user.id);
-            if (userExists) throw new Error('Вы уже проголосовали на этот пост');
-
-            const userResponse = {
-                id: user.id
-            };
-
-            feedback.votes.push(userResponse);
-
+    
+            const userIndex = feedback.votes.findIndex(votes => votes.id === user.id);
+            
+            if (userIndex !== -1) {
+                feedback.votes.splice(userIndex, 1);
+            } else {
+                const userResponse = {
+                    id: user.id
+                };
+                feedback.votes.push(userResponse);
+            }
+    
             return await this.save(feedback);
         } catch (error: any) {
             throw new Error(error.message || 'Ошибка запроса на сделку');
         }
-    }
+    }    
 }
 
 export const feedBackRepo = new FeedbackRepository();

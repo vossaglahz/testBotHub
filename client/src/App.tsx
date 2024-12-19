@@ -36,6 +36,7 @@ import { Todo } from './components/Todo/Todo';
 import { NotFound } from './components/NotFound/NotFound';
 import { Payment } from './components/Payment/Payment';
 import './App.scss';
+import { Feedbacks } from './components/Feedbacks/Feedbacks';
 
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
                             <DealLawyers />
                         </ProtectedRoute>} />
                     <Route path="/lawyer_list" element={<LawyerList />} />
+                    <Route path="/feedbackBotHub" element={<Feedbacks />} />
                     <Route path="/intellectual-robot" element={<IntellectualRobot />} />
                     <Route path="/faq" element={<FaqPage />} />
                 </Route>

@@ -10,6 +10,7 @@ import { RatingApi } from './api/rating.api';
 import { ToDoApi } from './api/todo.api';
 import { OpenAiApi } from './api/openAI.api';
 import { ChatApi } from './api/chat.api';
+import { FeedbackApi } from './api/feedback';
 
 export const store = configureStore({
     reducer: {
@@ -22,7 +23,8 @@ export const store = configureStore({
         [RatingApi.reducerPath]: RatingApi.reducer,
         [ToDoApi.reducerPath]: ToDoApi.reducer,
         [OpenAiApi.reducerPath]: OpenAiApi.reducer,
-        [ChatApi.reducerPath]: ChatApi.reducer
+        [ChatApi.reducerPath]: ChatApi.reducer,
+        [FeedbackApi.reducerPath]: FeedbackApi.reducer
     },
     middleware: getDefaultMiddleware => 
         getDefaultMiddleware().concat(
@@ -34,7 +36,8 @@ export const store = configureStore({
             RatingApi.middleware,
             ToDoApi.middleware,
             OpenAiApi.middleware,
-            ChatApi.middleware
+            ChatApi.middleware,
+            FeedbackApi.middleware
         ),
 });
 

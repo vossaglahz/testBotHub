@@ -32,3 +32,8 @@ export class Feedback {
     @Column('jsonb', { nullable: true })
     votes!: Partial<User>[];
 }
+
+
+export interface FeedbackWithClicked extends Feedback {
+    clicked?: boolean;
+}
