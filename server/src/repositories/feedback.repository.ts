@@ -30,7 +30,9 @@ export class FeedbackRepository extends Repository<Feedback> {
         }
     
         if (filters.endPeriod) {
-            queryBuilder.andWhere('feedback.createdAt <= :endPeriod', { endPeriod: new Date(filters.endPeriod) });
+            const endPeriod = new Date(filters.endPeriod);
+            endPeriod.setHours(23, 59, 59, 999);
+            queryBuilder.andWhere('feedback.createdAt <= :endPeriod', { endPeriod });
         }
     
         if (filters.category) {
@@ -43,17 +45,17 @@ export class FeedbackRepository extends Repository<Feedback> {
     
         if (filters.votes) {
             if (filters.votes === 'LOWEST') {
-                queryBuilder.orderBy('jsonb_array_length(feedback.votes)', 'ASC');
+                queryBuilder.orderBy('jsonb_array_length(COALESCE(feedback.votes, \'[]\'))', 'ASC');
             } else if (filters.votes === 'HIGHEST') {
-                queryBuilder.orderBy('jsonb_array_length(feedback.votes)', 'DESC');
+                queryBuilder.orderBy('jsonb_array_length(COALESCE(feedback.votes, \'[]\'))', 'DESC');
             }
         }
     
         if (filters.createdAt) {
             if (filters.createdAt === 'NEWEST') {
-                queryBuilder.orderBy('feedback.createdAt', 'DESC');
+                queryBuilder.orderBy('feedback.id', 'DESC');
             } else if (filters.createdAt === 'OLDEST') {
-                queryBuilder.orderBy('feedback.createdAt', 'ASC');
+                queryBuilder.orderBy('feedback.id', 'ASC');
             }
         }
     

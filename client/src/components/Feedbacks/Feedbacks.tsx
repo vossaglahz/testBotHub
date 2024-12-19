@@ -168,6 +168,24 @@ export const Feedbacks = () => {
                                 <MenuItem value={'LOWEST'}>{"Низкая"}</MenuItem>
                             </Select>
                         </FormControl>
+                        <FormControl className="formSelectMenu">
+                        <InputLabel id="demo-simple-select-label">{"Сначала"}</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={votes}
+                                label="Votes"
+                                onChange={e => {
+                                setCreatedAt(e.target.value);
+                                setCurrentPage(0); 
+                                setVotes(''); 
+                                }}
+                            >
+                                <MenuItem value={''}>{t('List.dealList.priceAll')}</MenuItem>
+                                <MenuItem value={'NEWEST'}>{"Новые"}</MenuItem>
+                                <MenuItem value={'OLDEST'}>{"Старые"}</MenuItem>
+                            </Select>
+                        </FormControl>
                         {user.role === 'user' ? (
                             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 <Button className="open-deal-button" variant="contained" onClick={toggleOpen}>
