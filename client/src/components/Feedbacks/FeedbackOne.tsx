@@ -57,7 +57,7 @@ export const FeedbackOne = ({
                 return { color: '#38a0dc', text: 'Баг' };
             case 'UI':
                 return { color: '#a4b600', text: 'UI' };
-            case 'Perfomance':
+            case 'Performance':
                 return { color: 'black', text: 'Производительность' };
             default:
                 return { color: 'black', text: '' };
@@ -74,7 +74,7 @@ export const FeedbackOne = ({
             case 'Processing':
                 return { color: '#a4b600', text: 'В работе' };
             case 'Done':
-                return { color: 'black', text: 'Выполнено' };
+                return { color: 'black', text: 'Завершено' };
             default:
                 return { color: 'black', text: '' };
         }
