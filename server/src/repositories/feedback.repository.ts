@@ -16,8 +16,8 @@ export class FeedbackRepository extends Repository<Feedback> {
             user = await this.manager.findOne(User, { where: { refreshToken } });
         }
     
-        const queryBuilder = this.createQueryBuilder('feedbacks')
-            .orderBy('feedbacks.id', 'DESC');
+        const queryBuilder = this.createQueryBuilder('feedback')
+            .orderBy('feedback.id', 'DESC');
     
         const page = filters.page && filters.page > 0 ? filters.page : 1;
         const limit = filters.limit && filters.limit > 0 ? filters.limit : 5;
@@ -26,34 +26,34 @@ export class FeedbackRepository extends Repository<Feedback> {
         queryBuilder.skip(offset).take(limit);
     
         if (filters.startPeriod) {
-            queryBuilder.andWhere('feedbacks.createdAt >= :startPeriod', { startPeriod: new Date(filters.startPeriod) });
+            queryBuilder.andWhere('feedback.createdAt >= :startPeriod', { startPeriod: new Date(filters.startPeriod) });
         }
     
         if (filters.endPeriod) {
-            queryBuilder.andWhere('feedbacks.createdAt <= :endPeriod', { endPeriod: new Date(filters.endPeriod) });
+            queryBuilder.andWhere('feedback.createdAt <= :endPeriod', { endPeriod: new Date(filters.endPeriod) });
         }
     
         if (filters.category) {
-            queryBuilder.andWhere('feedbacks.category = :category', { category: filters.category });
+            queryBuilder.andWhere('feedback.category = :category', { category: filters.category });
         }
     
         if (filters.status) {
-            queryBuilder.andWhere('feedbacks.status = :status', { status: filters.status });
+            queryBuilder.andWhere('feedback.status = :status', { status: filters.status });
         }
     
         if (filters.votes) {
             if (filters.votes === 'LOWEST') {
-                queryBuilder.orderBy('feedbacks.votes', 'ASC');
+                queryBuilder.orderBy('feedback.votes', 'ASC');
             } else if (filters.votes === 'HIGHEST') {
-                queryBuilder.orderBy('feedbacks.votes', 'DESC');
+                queryBuilder.orderBy('feedback.votes', 'DESC');
             }
         }
     
         if (filters.createdAt) {
             if (filters.createdAt === 'NEWEST') {
-                queryBuilder.orderBy('feedbacks.createdAt', 'DESC');
+                queryBuilder.orderBy('feedback.createdAt', 'DESC');
             } else if (filters.createdAt === 'OLDEST') {
-                queryBuilder.orderBy('feedbacks.createdAt', 'ASC');
+                queryBuilder.orderBy('feedback.createdAt', 'ASC');
             }
         }
     
