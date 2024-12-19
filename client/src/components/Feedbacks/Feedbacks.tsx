@@ -95,10 +95,10 @@ export const Feedbacks = () => {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={status}
-                                label="Status"
+                                value={category}
+                                label="Category"
                                 onChange={e => {
-                                    setStatus(e.target.value);
+                                    setCategory(e.target.value);
                                     setCurrentPage(0);
                                 }}
                             >
@@ -114,10 +114,10 @@ export const Feedbacks = () => {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={category}
-                                label="Category"
+                                value={status}
+                                label="Status"
                                 onChange={e => {
-                                    setCategory(e.target.value);
+                                    setStatus(e.target.value);
                                     setCurrentPage(0);
                                 }}
                             >
@@ -166,7 +166,7 @@ export const Feedbacks = () => {
                         })
                     ) : (
                         <div className="empty-show">
-                            {t('List.dealList.noOrderHistory')}
+                            {'Посты отсуствуют'}
                             <img src={`/static/empty-box.png`} alt="empty-box" />
                         </div>
                     )}
